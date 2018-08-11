@@ -1,104 +1,51 @@
-"去掉vi的一致性"
 set nocompatible
-""显示行号"
-set number
-" 隐藏滚动条"    
-set guioptions-=r 
-set guioptions-=L
-set guioptions-=b
-"隐藏顶部标签栏"
-set showtabline=1
-"设置字体"
-set guifont=Monaco:h13         
-syntax on    
-set background=dark        "设置背景色"
-colorscheme monokai
-set nowrap    "设置不折行"
-set fileformat=unix    "设置以unix的格式保存文件"
-set cindent        "设置C样式的缩进格式"
-set tabstop=4    "设置table长度"
-set shiftwidth=4        "同上"
-set showmatch    "显示匹配的括号"
-set scrolloff=5        "距离顶部和底部5行"
-set laststatus=2    "命令行为两行"
-set fenc=utf-8      "文件编码"
-set backspace=2
-"set mouse=a        "启用鼠标"
-set selection=exclusive
-set selectmode=mouse,key
-set matchtime=5
-set ignorecase        "忽略大小写"
-set incsearch
-set hlsearch        "高亮搜索项"
-set noexpandtab        "不允许扩展table"
-set whichwrap+=<,>,h,l
-set autoread
-set cursorline        "突出显示当前行"
-set cursorcolumn        "突出显示当前列"
-set omnifunc=jedi#complete
+filetype off
 
-"F11 paste mode"
-set pastetoggle=<F11> 
+syntax enable
+
+set backspace=indent,eol,start
+
+set number
+set showmatch
+set visualbell
+
+set hlsearch
+set smartcase
+set ignorecase
+set incsearch
+
+set autoindent
+set expandtab
+set shiftwidth=4
+set smartindent
+set smarttab
+set softtabstop=4
+
+set cursorcolumn
+set cursorline
+set ruler
+
+set pastetoggle=<F11>
+
+colorscheme monokai
 
 let g:pydiction_location = '.vim/bundle/pydiction/complete-dict'
 let g:pydiction_menu_height = 5
-filetype plugin on
+let python_hightlight_all=1
 
-"按F5运行python"
-map <F5> :Autopep8<CR> :w<CR> :call RunPython()<CR>
-function RunPython()
-	let mp = &makeprg
-	let ef = &errorformat
-	let exeFile = expand("%:t")
-	setlocal makeprg=python\ -u
-	set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
-	silent make %
-	copen
-	let &makeprg = mp
-	let &errorformat = ef
-endfunction
+set omnifunc=jedi#complete
 
-filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
+
+
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
-
 Plugin 'Lokaltog/vim-powerline'
-Plugin 'Yggdroot/indentLine'	
-Plugin 'davidhalter/jedi-vim'			
-Plugin 'ervandew/supertab'	
+Plugin 'Yggdroot/indentLine'
+Plugin 'davidhalter/jedi-vim'
+Plugin 'ervandew/supertab'
 Plugin 'rkulla/pydiction'
-
-"Plugin 'Valloric/YouCompleteMe'			
-"默认配置文件路径"
-"let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
-"打开vim时不再询问是否加载ycm_extra_conf.py配置"
-"let g:ycm_confirm_extra_conf=0
-"set completeopt=longest,menu
-"python解释器路径"
-"let g:ycm_path_to_python_interpreter='/usr/bin/python'
-"是否开启语义补全"
-"let g:ycm_seed_identifiers_with_syntax=1
-"是否在注释中也开启补全"
-"let g:ycm_complete_in_comments=1
-"let g:ycm_collect_identifiers_from_comments_and_strings = 0
-"开始补全的字符数"
-"let g:ycm_min_num_of_chars_for_completion=2
-"补全后自动关机预览窗口"
-"let g:ycm_autoclose_preview_window_after_completion=1
-" 禁止缓存匹配项,每次都重新生成匹配项"
-"let g:ycm_cache_omnifunc=0
-"字符串中也开启补全"
-"let g:ycm_complete_in_strings = 1
-"离开插入模式后自动关闭预览窗口"
-"autocmd InsertLeave * if pumvisible() == 0|pclose|endif
-"回车即选中当前项"
-"inoremap <expr> <CR>       pumvisible() ? '<C-y>' : '\<CR>'     
-"上下左右键行为"
-"inoremap <expr> <Down>     pumvisible() ? '\<C-n>' : '\<Down>'
-"inoremap <expr> <Up>       pumvisible() ? '\<C-p>' : '\<Up>'
-"inoremap <expr> <PageDown> pumvisible() ? '\<PageDown>\<C-p>\<C-n>' : '\<PageDown>'
-"inoremap <expr> <PageUp>   pumvisible() ? '\<PageUp>\<C-p>\<C-n>' : '\<PageUp>'
-
+Plugin 'jiangmiao/auto-pairs'
 call vundle#end()
+
 filetype plugin indent on
